@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1#dream The Dreamline
+    link(rel='stylesheet', href='/stylesheets/home.css')
+    div(
+        id="timeline"
+    )
+
+    script(type='text/javascript', src="/javascripts/timelines.js")
+    script(type='text/javascript').
+        var data = [!{goals}];
+        var data_extremes = getDataExtremes(data);
+        var width = parseFloat($(document).width());
+        var height = (data_extremes[1] - data_extremes[0]) * 200;
+        var timeline = new TimeLine(height, width, data_extremes[0], data_extremes[1], data);
+        var milestones = false;
+        
+        function getDataExtremes(data){
+            var datum = data[0];
+            var data_min = datum.finish;
+            var data_max = datum.finish;
+            for(var x = 1; x < data.length; x++){
+                datum = data[x];
+                if(datum.finish > data_max){
+                    data_max = datum.finish;
+                } else if(datum.finish < data_min){
+                    data_min = datum.finish;
+                }
+            }
+            return [data_min, data_max];
+        }

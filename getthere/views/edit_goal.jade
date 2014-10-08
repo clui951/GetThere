@@ -1,0 +1,67 @@
+script(type='text/javascript', src="/javascripts/bootstrap.min.js")
+link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+h1 Edit Goal
+form(
+    action="/edit_goal"
+    method="POST"
+    enctype="multipart/form-data"
+)
+    label(
+        for="goal_name"
+    ) Goal Name:
+    input(
+        type="text"
+        id="goal_string"
+        name="goal_string"
+        class="form-control"
+    )
+    label(
+        for="goal_ind"
+    ) Goal Index:
+    input(
+        type="text"
+        id="goal_ind"
+        name="goal_ind"
+        class="form-control"
+    )
+    label(
+        for="goal_description"
+    ) Goal Description:
+    input(
+        type="text"
+        id="goal_description"
+        name="goal_description"
+        class="form-control"
+    )
+    label(
+        for="completed"
+    ) Completed:
+    input(
+        type="text"
+        id="completed"
+        name="completed"
+        class="form-control"
+    )
+    label(
+        for="goal_image"
+    ) Goal Image:
+    input(
+        type="file"
+        id="goal_image"
+        name="goal_image"
+        class="form-control"
+    )
+
+
+    div(
+        class="submit_btn_group"
+    )
+        input(
+            type="submit"
+            class="btn btn-default"
+        )
+        button(
+            class="btn btn-default closedialog"
+        ) Close

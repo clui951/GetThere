@@ -1,0 +1,73 @@
+extends layout
+
+block content
+    h1#dream The Dreams
+    link(rel='stylesheet', href='/stylesheets/home.css')
+    br
+    br
+    button(
+        class="btn btn-default"
+    )
+        a(
+            href="/create_goal"
+            class="popup"
+        ) Create Goal
+    button(
+        class="btn btn-default"
+    )
+        a(
+            href="/edit_goal"
+            class="popup"
+        ) Edit Goal
+    button(
+        class="btn btn-default"
+    )
+        a(
+            href="/delete_goal"
+            class="popup"
+        ) Delete Goal
+    div(
+        id="goalbox"
+        class="container"
+    )
+        script.
+            var goal_array = [!{goals}]
+            console.log(goal_array);
+
+            var max_width = $(document).width();
+            var i =0;
+            var j =0;
+            var cur_width = 250;
+            $("#goalbox").append("<div class='btn-row' id='btn-row0'></div>");
+            $("#btn-row0").append("<a href = '/create_goal' class='popup'><input type='image' src='#' class='goal-img' id='goal-create'/></a>");
+            while((goal_array[0] != "" || goal_array.length != 1) && j < goal_array.length){
+                console.log(j);
+                while (cur_width < .9 * max_width){
+                    $("#btn-row"+i.toString()).append("<input type='image' src='"+"#{basePath}"+goal_array[j]["path"]+"' class='goal-img' id='goal-img-"+(j).toString()+"'/>");
+                    cur_width += parseInt($("#goal-img-"+(j).toString()).css('width'));
+                    if(goal_array[j].completed == false){
+                        $("#goal-img-" + (j).toString()).fadeTo(0,0.75);
+                    }
+                    j = j+1;
+                    if(j >= goal_array.length){
+                        break;
+                    }
+                }
+                i += 1;
+                cur_width = 0;
+                $("#goalbox").append("<div class='btn-row' id='btn-row"+i.toString()+"'></div>");
+            }
+            
+
+            $(document).ready(function(){
+                $(".goal-image").click(function(e){
+                    $.ajax({
+                        url: '/add_goal',
+                        type: 'POST',
+                        data: {'goal_string':'Herher', 'goal_path':'/images/add_goal.jpg'},
+                        success: function(res){
+                            $('#popupbox').dialog('close');
+                        }
+                    }); 
+                });
+            });

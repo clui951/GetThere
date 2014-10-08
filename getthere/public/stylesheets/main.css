@@ -1,0 +1,26 @@
+.content_container{
+    margin-left:10px;
+}
+#dream{
+    text-align: center;
+    font-size: 40px;
+}
+.form-control{
+    width:200px;
+}
+#submit_button{
+    margin-top:10px;
+}
+
+.prof_grid{
+	height: 150px;
+	width: 150px;
+	text-align: center;
+}
+a,a:hover, a:visited{
+    text-decoration: none;
+    color:black;
+}
+.submit_btn_group{
+    margin-top:10px;
+}

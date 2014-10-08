@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    title #{title}
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='stylesheet', href='/jquery-ui-1.11.1.custom/jquery-ui.min.css')
+    link(rel='stylesheet', href='/jquery-ui-1.11.1.custom/jquery-ui.structure.min.css')
+    link(rel='stylesheet', href='/jquery-ui-1.11.1.custom/jquery-ui.theme.min.css')
+    script(type='text/javascript', src="/javascripts/jquery-2.1.1.min.js")
+    script(type='text/javascript', src="/jquery-ui-1.11.1.custom/jquery-ui.min.js")
+    script(type='text/javascript', src="/javascripts/bootstrap.min.js")
+    script(type='text/javascript', src="/javascripts/d3.min.js")
+    script(type='text/javascript').
+        $(document).ready(function(){
+            //sets popup box to do what it sounds like, be a popup box and sets functions for when the popup box is opened, including closeddialog
+            $(".popup").click(function(e){
+                e.preventDefault();
+                $("#popupbox").load($(this).attr("href"), function(){
+                     //sets popup box to be at the top and have a certain width
+                    $("#popupbox").dialog({
+                        autoOpen: false,
+                        width:450,
+                    });
+                    $("#popupbox").dialog("open");   
+                    $(".closedialog").click(function(e){
+                        e.preventDefault();
+                        $("#popupbox").dialog("close");
+                        return false;
+                    });
+                });
+                return false;
+            }); 
+        });
+  body
+    block navbar
+        nav(class=['navbar', 'navbar-default']
+            role='navigation'
+        )
+            div#bs-example-navbar-collapse-1(class=['collapse', 'navbar-collapse'])
+                ul(class=['nav', 'navbar-nav'])
+                    li
+                        a(class='navbar-brand'
+                            href="/"
+                        ) Home
+                    li
+                        a(href="/profile/") Profile
+                    li
+                        a(href="/timeline/") Timeline
+                ul(class=['nav', 'navbar-nav', 'navbar-right'])
+                    if username
+                        li
+                            strong(class="navbar-text") #{username}
+                        li
+                            a(href = "/logout" method="POST") Logout
+                    else
+                        a(class="btn"
+                            href="/login"
+                        ) Login
+                        a(class="btn btn-primary"
+                            href="/register"
+                        ) Register
+    .content_container
+        block content
+    div(
+        id="popupbox"
+    )
